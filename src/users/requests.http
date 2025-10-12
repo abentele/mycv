@@ -1,0 +1,28 @@
+# Users Requests
+
+## Get user by ID
+GET http://localhost:3000/auth/1
+
+## Find all users with a given email
+GET http://localhost:3000/auth/email=andreas@test.de
+
+## Create a new user
+POST http://localhost:3000/auth/signup
+content-type: application/json
+
+{
+  "email": "andreas@test.de",
+  "password": "asdf",
+  "test": "abc"
+}
+
+## Update a user by ID
+PATCH http://localhost:3000/auth/1
+content-type: application/json
+
+{
+  "email": "andreas@test.de"
+}
+
+## Delete a user by ID
+DELETE http://localhost:3000/auth/1
