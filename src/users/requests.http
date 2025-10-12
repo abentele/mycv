@@ -1,12 +1,15 @@
 # Users Requests
 
-## Get user by ID
-GET http://localhost:3000/auth/1
+### Get user by ID
 
-## Find all users with a given email
-GET http://localhost:3000/auth/email=andreas@test.de
+GET http://localhost:3000/auth/3
 
-## Create a new user
+### Find all users with a given email
+
+GET http://localhost:3000/auth?email=andreas@test.de
+
+### Create a new user
+
 POST http://localhost:3000/auth/signup
 content-type: application/json
 
@@ -16,13 +19,15 @@ content-type: application/json
   "test": "abc"
 }
 
-## Update a user by ID
-PATCH http://localhost:3000/auth/1
+### Update a user by ID
+
+PATCH http://localhost:3000/auth/2
 content-type: application/json
 
 {
-  "email": "andreas@test.de"
+  "email": "andreas@test2.de"
 }
 
-## Delete a user by ID
-DELETE http://localhost:3000/auth/1
+### Delete a user by ID
+
+DELETE http://localhost:3000/auth/2
