@@ -8,15 +8,25 @@ GET http://localhost:3000/auth/3
 
 GET http://localhost:3000/auth?email=andreas@test.de
 
-### Create a new user
+### Signup new user
 
 POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-  "email": "andreas@test.de",
+  "email": "asdf10@test.de",
   "password": "asdf",
   "test": "abc"
+}
+
+### Signin existing user
+
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+  "email": "asdf10@test.de",
+  "password": "asdf"
 }
 
 ### Update a user by ID
