@@ -28,8 +28,8 @@ export class UsersController {
   ) {}
 
   @Get('whoami')
-  whoAmI(@CurrentUser() userId: number) {
-    return this.usersService.findOne(userId);
+  whoAmI(@CurrentUser() currentUser: User) {
+    return currentUser;
   }
 
   @Post('signup')
