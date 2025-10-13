@@ -3,9 +3,12 @@ import {
   ExecutionContext,
   Injectable,
   NestInterceptor,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from '../users.service';
+import { AuthGuard } from 'src/guards/auth.guard';
 
+@UseGuards(AuthGuard)
 @Injectable()
 export class CurrentUserInterceptor implements NestInterceptor {
   constructor(private usersService: UsersService) {}

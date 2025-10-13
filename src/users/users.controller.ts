@@ -18,6 +18,7 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth/auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
+import { Public } from 'src/guards/public.decorator';
 
 @Serialize(UserDto)
 @Controller('auth')
@@ -32,6 +33,7 @@ export class UsersController {
     return currentUser;
   }
 
+  @Public()
   @Post('signup')
   async createUser(@Body() data: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signup(data.email, data.password);
@@ -39,6 +41,7 @@ export class UsersController {
     return user;
   }
 
+  @Public()
   @Post('signin')
   async signin(@Body() data: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signin(data.email, data.password);
