@@ -3,6 +3,7 @@ import {
   ForbiddenException,
   Inject,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { UsersService } from '../users.service';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
@@ -46,7 +47,8 @@ export class AuthService {
 
     // check if the user exists
     if (!user) {
-      throw new BadRequestException('bad username or password');
+      // in der Praxis wird man eine einheitliche Fehlermeldung erzeugen für falschen Benutzername/falsches Passwort!!
+      throw new NotFoundException('bad username or password');
     }
 
     // split the stored password into the salt and the hash
