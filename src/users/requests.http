@@ -14,7 +14,7 @@ POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-  "email": "asdf10@test.de",
+  "email": "test1@test.de",
   "password": "asdf",
   "test": "abc"
 }
@@ -25,7 +25,7 @@ POST http://localhost:3000/auth/signin
 content-type: application/json
 
 {
-  "email": "asdf10@test.de",
+  "email": "test@test.de",
   "password": "asdf"
 }
 
@@ -42,10 +42,10 @@ content-type: application/json
 
 DELETE http://localhost:3000/auth/2
 
-### Set favorite color in session
+### Who am I (get current user)
 
-GET http://localhost:3000/auth/colors/green
+GET http://localhost:3000/auth/whoami
 
-### Get favorite color from session
+### Signout current user
 
-GET http://localhost:3000/auth/colors
+POST http://localhost:3000/auth/signout
