@@ -41,3 +41,11 @@ content-type: application/json
 ### Delete a user by ID
 
 DELETE http://localhost:3000/auth/2
+
+### Set favorite color in session
+
+GET http://localhost:3000/auth/colors/green
+
+### Get favorite color from session
+
+GET http://localhost:3000/auth/colors
