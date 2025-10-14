@@ -3,6 +3,9 @@ import { Report } from '../report.entity';
 
 export class ReportDto {
   @Expose()
+  approved: boolean;
+
+  @Expose()
   price: number;
 
   @Expose()
