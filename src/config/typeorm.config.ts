@@ -1,8 +1,7 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSourceOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
 
-// Load the right .env file before anything else
+// Load the correct .env file
 dotenv.config({
   path:
     process.env.NODE_ENV === 'production'
@@ -10,25 +9,24 @@ dotenv.config({
       : '.env.development',
 });
 
-/**
- * Builds a TypeORM config object that supports both Postgres and SQLite.
- */
-export const typeOrmConfig = (): TypeOrmModuleOptions => {
+export const typeOrmConfig = (): DataSourceOptions => {
+  const isProd = process.env.NODE_ENV === 'production';
+  const isSQLite = process.env.DB_TYPE === 'sqlite';
+
   const common = {
+    synchronize: false, // always false for migrations
+    logging: !isProd,
     autoLoadEntities: true,
-    synchronize: process.env.NODE_ENV !== 'production',
-    logging: process.env.NODE_ENV !== 'production',
   };
 
-  if (process.env.DB_TYPE === 'sqlite') {
+  if (isSQLite) {
     return {
       type: 'sqlite',
       database: process.env.DB_PATH ?? 'dev.sqlite',
       ...common,
-    } as TypeOrmModuleOptions;
+    };
   }
 
-  // Default to Postgres
   return {
     type: 'postgres',
     host: process.env.DB_HOST,
@@ -37,12 +35,5 @@ export const typeOrmConfig = (): TypeOrmModuleOptions => {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     ...common,
-  } as TypeOrmModuleOptions;
+  };
 };
-
-/**
- * Shared DataSource for TypeORM CLI (migrations, schema sync, etc.)
- */
-export const typeOrmDataSource = new DataSource(
-  typeOrmConfig() as DataSourceOptions,
-);

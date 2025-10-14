@@ -19,7 +19,9 @@ import { typeOrmConfig } from './config/typeorm.config';
           ? '.env.production'
           : '.env.development',
     }),
-    TypeOrmModule.forRoot(typeOrmConfig()),
+    TypeOrmModule.forRootAsync({
+      useFactory: typeOrmConfig,
+    }),
     UsersModule,
     ReportsModule,
   ],
