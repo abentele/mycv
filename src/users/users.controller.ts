@@ -14,11 +14,11 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/CreateUser.dto';
 import { User } from './user.entity';
 import { UpdateUserDto } from './dtos/UpdateUser.dto';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth/auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { Public } from 'src/guards/public.decorator';
+import { Public } from '../guards/public.decorator';
 
 @Serialize(UserDto)
 @Controller('auth')
@@ -35,7 +35,7 @@ export class UsersController {
 
   @Public()
   @Post('signup')
-  async createUser(@Body() data: CreateUserDto, @Session() session: any) {
+  async signup(@Body() data: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signup(data.email, data.password);
     session.userId = user.id;
     return user;
@@ -56,7 +56,7 @@ export class UsersController {
 
   @Get(':id')
   async findUser(@Param('id') id: number) {
-    console.log('Handler is running');
+    //console.log('Handler is running');
     const user = await this.usersService.findOne(id);
     if (!user) {
       throw new NotFoundException('user not found');
