@@ -6,7 +6,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from '../users.service';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from '../../guards/auth.guard';
 
 @UseGuards(AuthGuard)
 @Injectable()
