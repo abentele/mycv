@@ -9,6 +9,7 @@ import cookieSession from 'cookie-session';
 import { AuthGuard } from './guards/auth.guard';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { typeOrmConfig } from './config/typeorm.config';
+import { DatabaseMigrationsService } from './database-migrations.service';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { typeOrmConfig } from './config/typeorm.config';
   providers: [
     AppService,
     ConfigService,
+    DatabaseMigrationsService,
     {
       provide: APP_PIPE,
       useValue: new ValidationPipe({
