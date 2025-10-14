@@ -16,7 +16,7 @@ describe('Authentication System', () => {
     await app.init();
   });
 
-  it('handles signup request', () => {
+  it('handles signup request', async () => {
     const email = 'test6@akl.de';
     return request(app.getHttpServer())
       .post('/auth/signup')

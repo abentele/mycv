@@ -6,18 +6,27 @@ import { ReportsModule } from './reports/reports.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { Report } from './reports/report.entity';
-import { AuthService } from './users/auth/auth.service';
 import { APP_GUARD, APP_PIPE, Reflector } from '@nestjs/core';
 import cookieSession from 'cookie-session';
 import { AuthGuard } from './guards/auth.guard';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db.sqlite',
-      entities: [User, Report],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+    }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        return {
+          type: 'sqlite',
+          database: configService.get<string>('DB_NAME'),
+          entities: [User, Report],
+          synchronize: true,
+        };
+      },
     }),
     UsersModule,
     ReportsModule,
@@ -25,6 +34,7 @@ import { AuthGuard } from './guards/auth.guard';
   controllers: [AppController],
   providers: [
     AppService,
+    ConfigService,
     {
       provide: APP_PIPE,
       useValue: new ValidationPipe({
