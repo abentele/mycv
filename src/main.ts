@@ -6,18 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-    }),
-  );
-  app.use(
-    cookieSession({
-      keys: ['2343212332234'],
-    }),
-  );
-  const reflector = app.get(Reflector);
-  app.useGlobalGuards(new AuthGuard(reflector));
+  // don't configure the app here as this configuration would not be used for e2e tests!
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

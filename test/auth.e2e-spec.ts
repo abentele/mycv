@@ -4,7 +4,7 @@ import request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
 
-describe('AppController (e2e)', () => {
+describe('Authentication System', () => {
   let app: INestApplication<App>;
 
   beforeEach(async () => {
@@ -16,7 +16,17 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET) => expect forbidden', () => {
-    return request(app.getHttpServer()).get('/').expect(403);
+  it('handles signup request', () => {
+    const email = 'test6@akl.de';
+    return request(app.getHttpServer())
+      .post('/auth/signup')
+      .send({ email: email, password: 'asdf' })
+      .expect(201)
+      .then((res) => {
+        const { id, email } = res.body;
+        expect(id).toBeDefined();
+        expect(email).toEqual(email);
+        expect(res.headers['set-cookie']).toBeDefined();
+      });
   });
 });
