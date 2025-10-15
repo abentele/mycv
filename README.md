@@ -4,7 +4,7 @@ This is a small [Nest](https://github.com/nestjs/nest) demo application develope
 
 https://www.udemy.com/course/nestjs-the-complete-developers-guide/
 
-Compared to the sourcecode provided by the course, this repo should be more up-to-date with aspects like TypeORM configuration.
+Compared to the sourcecode provided by the course, this repo should be more up-to-date with aspects like TypeORM configuration, e2e-test configuration etc.
 
 ## Project setup
 
